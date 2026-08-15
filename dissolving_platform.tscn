@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://c4yt4s467xncv"]
+
+[ext_resource type="Script" uid="uid://s11fnp3fpucg" path="res://scripts/dissolving_platform.gd" id="1_bpu7k"]
+[ext_resource type="Texture2D" uid="uid://duu3hjtw0p5vw" path="res://assets/sprites/tiles/tiles_preview copy.png" id="1_ohon0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_db4kf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ohon0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpu7k"]
+size = Vector2(79, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ek6ow"]
+size = Vector2(78, 18)
+
+[node name="dissolving_platform" type="StaticBody2D" unique_id=845487954]
+script = ExtResource("1_bpu7k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1028957289]
+position = Vector2(0, -33)
+sprite_frames = SubResource("SpriteFrames_db4kf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2033628807]
+position = Vector2(0.5, 4.5)
+shape = SubResource("RectangleShape2D_bpu7k")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1246054468]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1571308834]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_ek6ow")
+
+[node name="dissolveTimer" type="Timer" parent="." unique_id=456154041]
+one_shot = true
+
+[node name="respawnTimer" type="Timer" parent="." unique_id=1035676226]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
+[connection signal="timeout" from="dissolveTimer" to="." method="_on_dissolve_timer_timeout"]
+[connection signal="timeout" from="respawnTimer" to="." method="_on_respawn_timer_timeout"]

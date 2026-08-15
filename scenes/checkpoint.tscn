@@ -186,7 +186,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u21k5")
 }],
-"loop": true,
+"loop": false,
 "name": &"deactivate",
 "speed": 6.0
 }, {
@@ -212,7 +212,10 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_aaln5")
 animation = &"deactivate"
 autoplay = "deactive"
+speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=873328192]
 position = Vector2(0, -19)
 shape = SubResource("RectangleShape2D_vsimk")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1454411355]

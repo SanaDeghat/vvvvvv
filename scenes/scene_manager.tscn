@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://df4hqfd2mqa8k" path="res://scenes/player.tscn" id="1_we8k5"]
 [ext_resource type="PackedScene" uid="uid://brhf1loxacc7n" path="res://scenes/tile_map_layer.tscn" id="2_65mdo"]
 [ext_resource type="PackedScene" uid="uid://dchpfnqtnxx36" path="res://scenes/checkpoint.tscn" id="3_b81s6"]
+[ext_resource type="PackedScene" uid="uid://c4yt4s467xncv" path="res://dissolving_platform.tscn" id="4_h7lqg"]
 
 [node name="scene_manager" type="Node2D" unique_id=2101461025]
 
@@ -20,3 +21,6 @@ scale = Vector2(2, 2)
 [node name="checkpoint2" parent="." unique_id=128034870 instance=ExtResource("3_b81s6")]
 position = Vector2(621, 544)
 scale = Vector2(2, 2)
+
+[node name="StaticBody2D" parent="." unique_id=845487954 instance=ExtResource("4_h7lqg")]
+position = Vector2(343, 432)

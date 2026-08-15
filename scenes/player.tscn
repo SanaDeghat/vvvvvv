@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cqejdwwwna6es" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bfkrgunk63hon" path="res://assets/sprites/player/playerAirSpin.png" id="2_dqkch"]
-[ext_resource type="Texture2D" uid="uid://d1l2j2bxij4fa" path="res://assets/sprites/player/playerWalk.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://d1l2j2bxij4fa" path="res://assets/sprites/player/PlayerWalk.png" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://dq1w7nrucvnbv" path="res://assets/sprites/player/playerDamage.png" id="3_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cbn1omv2wsqcp" path="res://assets/sprites/player/playerIdle.png" id="3_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://de1yju7bqojq" path="res://assets/sprites/player/playerJump.png" id="4_qlg0r"]
@@ -195,7 +195,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"air-spin",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -264,7 +264,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jump-start",
-"speed": 7.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -296,7 +296,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"land",
-"speed": 5.0
+"speed": 11.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -330,6 +330,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 5.5
+height = 33.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=2071049972]
 z_index = 1
@@ -337,28 +338,31 @@ scale = Vector2(2, 2)
 script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1879633856]
+position = Vector2(0.5, -15.5)
 sprite_frames = SubResource("SpriteFrames_d2wvv")
-animation = &"damage"
+animation = &"air-spin"
 speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1428844314]
-position = Vector2(0, 1.5)
+position = Vector2(0.5, -16)
 shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="damage-area" type="Area2D" parent="." unique_id=374791989]
+position = Vector2(0.5, -15.5)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="damage-area" unique_id=2026309308]
-position = Vector2(0, 1.5)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="damage-area" unique_id=1437997934]
+position = Vector2(0, -0.5)
 shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="checkpoint_area" type="Area2D" parent="." unique_id=1566233260]
+position = Vector2(0.5, -15.5)
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="checkpoint_area" unique_id=1916775688]
-position = Vector2(0, 1.5)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="checkpoint_area" unique_id=1315153470]
+position = Vector2(0, -0.5)
 shape = SubResource("CapsuleShape2D_g2els")
 
 [connection signal="area_shape_entered" from="damage-area" to="." method="_on_area_2d_area_shape_entered"]
