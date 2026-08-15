@@ -12,7 +12,6 @@ func get_gravity() -> Vector2:
 func set_gravity (new_gravity: Vector2):
 	gravity=new_gravity
 func change_gravity() -> void:
-	print("change")
 	
 	gravity.y*=-1
 	gravity.x*=-1

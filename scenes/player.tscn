@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cqejdwwwna6es" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://bfkrgunk63hon" path="res://assets/sprites/player/playerAirSpin.png" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://d1l2j2bxij4fa" path="res://assets/sprites/player/playerWalk.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://dq1w7nrucvnbv" path="res://assets/sprites/player/playerDamage.png" id="3_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cbn1omv2wsqcp" path="res://assets/sprites/player/playerIdle.png" id="3_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://de1yju7bqojq" path="res://assets/sprites/player/playerJump.png" id="4_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://omebtivm7epu" path="res://assets/sprites/player/playerLand.png" id="5_tuyoq"]
@@ -30,6 +31,22 @@ region = Rect2(192, 0, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
 atlas = ExtResource("2_dqkch")
 region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs1tg"]
+atlas = ExtResource("3_fjrip")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dvfe"]
+atlas = ExtResource("3_fjrip")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_giy8y"]
+atlas = ExtResource("3_fjrip")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdfoy"]
+atlas = ExtResource("3_fjrip")
+region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
 atlas = ExtResource("3_qlg0r")
@@ -182,6 +199,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_cs1tg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dvfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_giy8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdfoy")
+}],
+"loop": true,
+"name": &"damage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qfm1y")
 }, {
 "duration": 1.0,
@@ -298,14 +332,35 @@ animations = [{
 radius = 5.5
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=2071049972]
+z_index = 1
 scale = Vector2(2, 2)
 script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1879633856]
 sprite_frames = SubResource("SpriteFrames_d2wvv")
-animation = &"air-spin"
+animation = &"damage"
 speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1428844314]
 position = Vector2(0, 1.5)
 shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="damage-area" type="Area2D" parent="." unique_id=374791989]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damage-area" unique_id=2026309308]
+position = Vector2(0, 1.5)
+shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="checkpoint_area" type="Area2D" parent="." unique_id=1566233260]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="checkpoint_area" unique_id=1916775688]
+position = Vector2(0, 1.5)
+shape = SubResource("CapsuleShape2D_g2els")
+
+[connection signal="area_shape_entered" from="damage-area" to="." method="_on_area_2d_area_shape_entered"]
+[connection signal="body_shape_entered" from="damage-area" to="." method="_on_area_2d_body_shape_entered"]
+[connection signal="body_shape_entered" from="checkpoint_area" to="." method="_on_checkpoint_area_body_shape_entered"]

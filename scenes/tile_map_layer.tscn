@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://brhf1loxacc7n"]
 
 [ext_resource type="Texture2D" uid="uid://bd3biusl82oua" path="res://assets/sprites/tiles/tiles.png" id="1_wipo8"]
+[ext_resource type="Texture2D" uid="uid://duu3hjtw0p5vw" path="res://assets/sprites/tiles/tiles_preview copy.png" id="2_okeva"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wipo8"]
 
@@ -83,13 +84,21 @@ texture = ExtResource("1_wipo8")
 2:2/0/terrains_peering_bit/top_left_corner = 0
 2:2/0/terrains_peering_bit/top_side = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3fi6"]
+texture = ExtResource("2_okeva")
+0:4/0 = 0
+0:4/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, 3.561203, 8, -8, 8, 4.055813, 8, 8, -8, 8)
+
 [sub_resource type="TileSet" id="TileSet_o3fi6"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_wipo8")
+physics_layer_1/collision_layer = 2
+physics_layer_1/collision_mask = 2
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.98039216, 0.9843137, 0.99215686, 1)
 sources/3 = SubResource("TileSetAtlasSource_okeva")
+sources/4 = SubResource("TileSetAtlasSource_o3fi6")
 
 [node name="TileMapLayer" type="TileMapLayer" unique_id=755223407]
 tile_set = SubResource("TileSet_o3fi6")

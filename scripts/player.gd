@@ -3,11 +3,13 @@ extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 const SPEED = 300.0
+var last_checkbox_location := Vector2(540,184)
 
 var was_on_floor := true
 var gravity_changing := false
 
-
+func respawn():
+	global_position=last_checkbox_location
 func _physics_process(delta: float) -> void:
 	velocity += global.get_gravity() * delta
 
@@ -60,3 +62,17 @@ func _physics_process(delta: float) -> void:
 			animated_sprite_2d.play("walk")
 		else:
 			animated_sprite_2d.play("idle")
+
+
+
+
+func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	print("check")
+
+
+	
+
+
+func _on_checkpoint_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	body.activate()
+	last_checkbox_location=body.global_position
