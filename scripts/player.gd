@@ -10,15 +10,20 @@ var gravity_changing := false
 
 func respawn():
 	global_position=last_checkbox_location
+func flip_gravity():
+	global.change_gravity()
+	up_direction *= -1
+
+	velocity.y = 0
+
+	gravity_changing = true
+	animated_sprite_2d.play("jump-start")
 func _physics_process(delta: float) -> void:
 	velocity += global.get_gravity() * delta
 
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not gravity_changing:
-		global.change_gravity()
-		up_direction *= -1
-		
-		gravity_changing = true
-		animated_sprite_2d.play("jump-start")
+	
+		flip_gravity()
 
 	var direction := Input.get_axis("ui_left", "ui_right")
 

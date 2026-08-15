@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://038fn6npesei"]
+
+[ext_resource type="Script" uid="uid://b05thlabl5upb" path="res://scripts/gravity_lines.gd" id="1_apaep"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_3h0k3"]
+
+[node name="Line2D" type="Line2D" unique_id=467712084]
+width = 3.0
+default_color = Color(0.5803922, 0.63529414, 0.73333335, 1)
+script = ExtResource("1_apaep")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=344443251]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=545532159]
+shape = SubResource("SegmentShape2D_3h0k3")
+
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
