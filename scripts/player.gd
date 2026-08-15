@@ -4,17 +4,20 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 
+var was_on_floor := true
+var gravity_changing := false
+
 
 func _physics_process(delta: float) -> void:
-	# Gravity
 	velocity += global.get_gravity() * delta
 
-	# Gravity change + spin
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not gravity_changing:
 		global.change_gravity()
-		animated_sprite_2d.play("air-spin")
+		up_direction *= -1
+		
+		gravity_changing = true
+		animated_sprite_2d.play("jump-start")
 
-	# Movement
 	var direction := Input.get_axis("ui_left", "ui_right")
 
 	if direction:
@@ -29,8 +32,30 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# Only change animation if we're NOT currently doing the spin
-	if animated_sprite_2d.animation != "air-spin" or not animated_sprite_2d.is_playing():
+	var on_floor_now := is_on_floor()
+
+	if not was_on_floor and on_floor_now:
+		gravity_changing = false
+		animated_sprite_2d.play("land")
+
+	was_on_floor = on_floor_now
+
+	if gravity_changing:
+
+		if animated_sprite_2d.animation == "jump-start" and not animated_sprite_2d.is_playing():
+			
+			animated_sprite_2d.flip_v = up_direction == Vector2.DOWN
+			
+			animated_sprite_2d.play("air-spin")
+
+
+	elif animated_sprite_2d.animation == "land" and not animated_sprite_2d.is_playing():
+		if direction:
+			animated_sprite_2d.play("walk")
+		else:
+			animated_sprite_2d.play("idle")
+
+	elif not gravity_changing and animated_sprite_2d.animation != "land":
 		if direction:
 			animated_sprite_2d.play("walk")
 		else:
