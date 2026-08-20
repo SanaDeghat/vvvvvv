@@ -203,6 +203,7 @@ animations = [{
 size = Vector2(20, 36)
 
 [node name="checkpoint" type="StaticBody2D" unique_id=1394525126]
+scale = Vector2(2, 2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_yqsag")

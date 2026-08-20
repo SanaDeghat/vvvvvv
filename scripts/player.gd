@@ -1,30 +1,51 @@
 extends CharacterBody2D
 
+@onready var camera_2d: Camera2D = $Camera2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-const SPEED = 300.0
-var last_checkbox_location := Vector2(540,184)
+const SPEED := 300.0
+
+var last_checkpoint_location := Vector2(540, 184)
+var last_checkpoint_gravity := Vector2.DOWN
 
 var was_on_floor := true
 var gravity_changing := false
 
+
 func respawn():
-	global_position=last_checkbox_location
+	global_position = last_checkpoint_location
+
+	# Restore the gravity from the last checkpoint
+	global.set_gravity(last_checkpoint_gravity)
+
+	# Make the player's up direction match the restored gravity
+	up_direction = -last_checkpoint_gravity
+
+	velocity = Vector2.ZERO
+	gravity_changing = false
+
+
 func flip_gravity():
 	global.change_gravity()
+
+	# Update the player's up direction
 	up_direction *= -1
 
 	velocity.y = 0
 
 	gravity_changing = true
 	animated_sprite_2d.play("jump-start")
+
+
 func _physics_process(delta: float) -> void:
+	# Apply gravity
 	velocity += global.get_gravity() * delta
 
+	# Gravity flip
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not gravity_changing:
-	
 		flip_gravity()
 
+	# Horizontal movement
 	var direction := Input.get_axis("ui_left", "ui_right")
 
 	if direction:
@@ -50,34 +71,47 @@ func _physics_process(delta: float) -> void:
 	if gravity_changing:
 
 		if animated_sprite_2d.animation == "jump-start" and not animated_sprite_2d.is_playing():
-			
+
 			animated_sprite_2d.flip_v = up_direction == Vector2.DOWN
-			
+
 			animated_sprite_2d.play("air-spin")
 
-
+	# Landing animation finished
 	elif animated_sprite_2d.animation == "land" and not animated_sprite_2d.is_playing():
+
 		if direction:
 			animated_sprite_2d.play("walk")
 		else:
 			animated_sprite_2d.play("idle")
 
+	# Normal animations
 	elif not gravity_changing and animated_sprite_2d.animation != "land":
+
 		if direction:
 			animated_sprite_2d.play("walk")
 		else:
 			animated_sprite_2d.play("idle")
 
 
-
-
-func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_area_2d_body_shape_entered(
+	body_rid: RID,
+	body: Node2D,
+	body_shape_index: int,
+	local_shape_index: int
+) -> void:
 	respawn()
 
 
-	
-
-
-func _on_checkpoint_area_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_checkpoint_area_body_shape_entered(
+	body_rid: RID,
+	body: Node2D,
+	body_shape_index: int,
+	local_shape_index: int
+) -> void:
 	body.activate()
-	last_checkbox_location=body.global_position
+
+	# Remember checkpoint position
+	last_checkpoint_location = body.global_position
+
+	# Remember gravity direction at this checkpoint
+	last_checkpoint_gravity = global.get_gravity().normalized()

@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cnuw3yo00l2my"]
+
+[node name="horizontalEnemies" type="Line2D" unique_id=1285721707]
+width = 0.0
