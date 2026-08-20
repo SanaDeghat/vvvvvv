@@ -203,6 +203,7 @@ animations = [{
 radius = 11.333334
 
 [node name="trinket" type="StaticBody2D" unique_id=1829452021]
+z_index = 2
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_t2jio")
 
@@ -210,9 +211,10 @@ script = ExtResource("1_t2jio")
 sprite_frames = SubResource("SpriteFrames_vonwh")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.107370175
 
 [node name="Area2D" type="Area2D" parent="." unique_id=116083496]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=552896287]
 shape = SubResource("CircleShape2D_qct1h")
+
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]

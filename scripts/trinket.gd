@@ -1,5 +1,6 @@
 extends StaticBody2D
-
+@export var id:=1
+@onready var sprites: AnimatedSprite2D = $AnimatedSprite2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,3 +10,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	sprites.play("pickup")
+	await sprites.animation_finished
+	queue_free()

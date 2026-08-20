@@ -3,23 +3,28 @@ extends CharacterBody2D
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-const SPEED := 300.0
+const SPEED := 450.0
 
 var last_checkpoint_location := Vector2(540, 184)
-var last_checkpoint_gravity := Vector2.DOWN
+var last_checkpoint_gravity := -1
 
 var was_on_floor := true
 var gravity_changing := false
 
 
 func respawn():
-	global_position = last_checkpoint_location
 
+	if last_checkpoint_gravity == up_direction.y:
+		global.change_gravity()
+		up_direction *= -1
+		animated_sprite_2d.flip_v = up_direction == Vector2.DOWN
+		velocity.y = 0
 	# Restore the gravity from the last checkpoint
-	global.set_gravity(last_checkpoint_gravity)
+	
+	global_position = last_checkpoint_location 
 
 	# Make the player's up direction match the restored gravity
-	up_direction = -last_checkpoint_gravity
+	
 
 	velocity = Vector2.ZERO
 	gravity_changing = false
@@ -94,7 +99,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_2d_body_shape_entered(
-	body_rid: RID,
+	_body_rid: RID,
 	body: Node2D,
 	body_shape_index: int,
 	local_shape_index: int
@@ -103,7 +108,7 @@ func _on_area_2d_body_shape_entered(
 
 
 func _on_checkpoint_area_body_shape_entered(
-	body_rid: RID,
+	_body_rid: RID,
 	body: Node2D,
 	body_shape_index: int,
 	local_shape_index: int
@@ -114,4 +119,4 @@ func _on_checkpoint_area_body_shape_entered(
 	last_checkpoint_location = body.global_position
 
 	# Remember gravity direction at this checkpoint
-	last_checkpoint_gravity = global.get_gravity().normalized()
+	last_checkpoint_gravity =sign( body.scale.x)
