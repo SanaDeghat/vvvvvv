@@ -29,6 +29,7 @@ func _ready() -> void:
 
 	animatable_body_2d.position = local_a.lerp(local_b, t)
 
+
 func _physics_process(delta: float) -> void:
 	var len := local_a.distance_to(local_b)
 	if len <= 0.0:
@@ -44,17 +45,32 @@ func _physics_process(delta: float) -> void:
 
 	animatable_body_2d.position = local_a.lerp(local_b, t)
 
+
 func _build_platform_tiles() -> void:
 	tile_map_layer.clear()
 
+	var tile_size: Vector2 = Vector2(64, 64)
+	if tile_map_layer.tile_set != null:
+		tile_size = tile_map_layer.tile_set.tile_size
+	else:
+		push_warning("TileMapLayer.tile_set is not assigned; using fallback tile size 64x64.")
+
+	var blocks = max(numOfBlocks, 1)
+
 	var axis := Vector2i(1, 0) if orientation == 0 else Vector2i(0, 1)
-	var half := numOfBlocks / 2
 	var cells: Array[Vector2i] = []
+	for i in range(blocks):
+		cells.append(axis * i)
 
-	for i in range(numOfBlocks):
-		cells.append(axis * (i - half)) # centered around (0,0)
+	tile_map_layer.set_cells_terrain_connect(cells, 0, 0)
 
-	tile_map_layer.set_cells_terrain_connect(cells, 0, 0) # first terrain set, first terrain
+	var total_size := Vector2(
+		tile_size.x * (blocks if orientation == 0 else 1),
+		tile_size.y * (1 if orientation == 0 else blocks)
+	)
+
+	tile_map_layer.position = -total_size * 0.5
+
 
 func _build_collision_shape() -> void:
 	var rect := collision_shape_2d.shape as RectangleShape2D
@@ -62,12 +78,18 @@ func _build_collision_shape() -> void:
 		rect = RectangleShape2D.new()
 		collision_shape_2d.shape = rect
 
-	var tile_size: Vector2 = tile_map_layer.tile_set.tile_size
+	var tile_size: Vector2 = Vector2(64, 64)
+	if tile_map_layer.tile_set != null:
+		tile_size = tile_map_layer.tile_set.tile_size
+
 	var blocks = max(numOfBlocks, 1)
 
-	if orientation == 0:
-		rect.size = Vector2(tile_size.x * blocks, tile_size.y)
-	else:
-		rect.size = Vector2(tile_size.x, tile_size.y * blocks)
+	var total_size := Vector2(
+		tile_size.x * (blocks if orientation == 0 else 1),
+		tile_size.y * (1 if orientation == 0 else blocks)
+	)
+
+	# Make collision 1 pixel larger on each side (adds 2 pixels to width and height)
+	rect.size = total_size + Vector2(2, 2)
 
 	collision_shape_2d.position = Vector2.ZERO
