@@ -3,8 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://bd3biusl82oua" path="res://assets/sprites/tiles/tiles.png" id="1_wipo8"]
 [ext_resource type="Texture2D" uid="uid://bmxgbgmoavbau" path="res://assets/sprites/objects/Spikes/SpikePitActivated.png" id="2_t43m4"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wipo8"]
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwvcx"]
 texture = ExtResource("2_t43m4")
 margins = Vector2i(0, 3)
@@ -94,9 +92,6 @@ texture = ExtResource("1_wipo8")
 
 [sub_resource type="TileSet" id="TileSet_o3fi6"]
 physics_layer_0/collision_layer = 1
-physics_layer_0/physics_material = SubResource("PhysicsMaterial_wipo8")
-physics_layer_1/collision_layer = 2
-physics_layer_1/collision_mask = 2
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.98039216, 0.9843137, 0.99215686, 1)

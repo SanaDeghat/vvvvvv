@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dsdmyubum22wp"]
+[gd_scene format=3 uid="uid://cahrh05ac4hi6"]
 
 [ext_resource type="Script" uid="uid://d22b465p6ql4h" path="res://scripts/moving_platform.gd" id="1_ms375"]
 [ext_resource type="Texture2D" uid="uid://bqonk4rs0uamo" path="res://assets/sprites/tiles/BlueprintTilesetLight.png" id="2_1tdcd"]
@@ -238,8 +238,8 @@ sources/0 = SubResource("TileSetAtlasSource_afg43")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1tdcd"]
 
 [node name="moving_platform" type="Line2D" unique_id=1391661102]
+scale = Vector2(2, 2)
 script = ExtResource("1_ms375")
-numOfBlocks = 5
 positiveDirection = false
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=569636911]
