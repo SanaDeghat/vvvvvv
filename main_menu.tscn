@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://6ass33snqchw"]
+
+[ext_resource type="Texture2D" uid="uid://bxseb16nssx6v" path="res://assets/sprites/ui/main.png" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://dn0e5rfmff1vq" path="res://scripts/main_menu.gd" id="1_glbon"]
+[ext_resource type="Texture2D" uid="uid://caht0hbij1iit" path="res://assets/sprites/ui/ui_person_leg_2.png" id="3_nlkkf"]
+[ext_resource type="Texture2D" uid="uid://cudtr8agl160l" path="res://assets/sprites/ui/ui_person_leg_1.png" id="4_qe12f"]
+[ext_resource type="Texture2D" uid="uid://uedk6ngcjnqf" path="res://assets/sprites/ui/person_ui.png" id="5_8qtwp"]
+
+[node name="Node2D" type="Node2D" unique_id=381971353]
+script = ExtResource("1_glbon")
+
+[node name="Main" type="Sprite2D" parent="." unique_id=2019877525]
+position = Vector2(581.2222, 328.5)
+scale = Vector2(0.6064815, 0.6064815)
+texture = ExtResource("1_06t4h")
+
+[node name="PersonUi" type="Sprite2D" parent="." unique_id=1931100392]
+position = Vector2(517.0625, 271.65894)
+scale = Vector2(0.059490804, 0.059490807)
+texture = ExtResource("5_8qtwp")
+
+[node name="UiPersonLeg2" type="Sprite2D" parent="." unique_id=1801327453]
+position = Vector2(526.0625, 287.65894)
+scale = Vector2(0.05204318, 0.05204318)
+texture = ExtResource("3_nlkkf")
+
+[node name="UiPersonLeg1" type="Sprite2D" parent="." unique_id=1847465217]
+position = Vector2(521.0625, 287.65894)
+scale = Vector2(0.06249997, 0.062499974)
+texture = ExtResource("4_qe12f")
+
+[node name="Button" type="Button" parent="." unique_id=1706504926]
+offset_left = 420.0
+offset_top = 477.0
+offset_right = 735.0
+offset_bottom = 554.0
+mouse_default_cursor_shape = 2
+flat = true

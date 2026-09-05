@@ -1,6 +1,6 @@
 extends Node2D
 
-var gravity: Vector2 = Vector2(0.0, 3000.0)
+var gravity: Vector2 = Vector2(0.0, 2500.0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
