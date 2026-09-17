@@ -86,7 +86,7 @@ func _build_collision_shape() -> void:
 		collision_shape_2d.shape = rect
 
 	# Match collision to the sprite's actual size.
-	var sprite_size := enemy_sprite.texture.get_size() * enemy_sprite.scale
+	var sprite_size := enemy_sprite.texture.get_size() * enemy_sprite.scale*0.65 
 
 	rect.size = sprite_size
 

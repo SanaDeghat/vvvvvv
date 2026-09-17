@@ -4,6 +4,7 @@ extends Line2D
 @export var positiveDirection := true
 @export var orientation := 0 # 0 = horizontal, 1 = vertical
 @export var speed := 120.0
+@export var line_placement := 0
 
 @onready var collision_shape_2d: CollisionShape2D = $AnimatableBody2D/CollisionShape2D
 @onready var tile_map_layer: TileMapLayer = $AnimatableBody2D/TileMapLayer

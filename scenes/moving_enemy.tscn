@@ -20,5 +20,5 @@ scale = Vector2(0.045138888, 0.045138888)
 texture = ExtResource("2_uokfc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D" unique_id=886459482]
-position = Vector2(-2, -3.5)
+position = Vector2(-2, -4)
 shape = SubResource("CircleShape2D_1tdcd")

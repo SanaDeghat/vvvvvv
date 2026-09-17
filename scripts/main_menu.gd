@@ -13,3 +13,7 @@ func _process(delta: float) -> void:
 	# left/right sway using sine wave
 	ui_person_leg_1.rotation = sin(t * sway_speed) * sway_amount
 	ui_person_leg_2.rotation = sin(t * sway_speed + PI) * sway_amount
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/level_1.tscn")
